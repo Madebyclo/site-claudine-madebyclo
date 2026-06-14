@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from PIL import Image
+from PIL import Image, ImageOps
 from pathlib import Path
 import os
 
@@ -15,6 +15,7 @@ def traiter_image(chemin, quality=80):
         taille_avant = os.path.getsize(chemin) / 1024  # Ko
 
         img = Image.open(chemin)
+        img = ImageOps.exif_transpose(img) # Gérer la rotation automatique
         est_png = chemin.suffix.lower() == '.png'
 
         transparence = est_png and a_transparence(img)
